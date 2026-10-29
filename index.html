@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoGPT - Interactive Visual Explainer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBg: '#F5F4EC',
+            brandCardBg: '#FAF9F3',
+            brandGreenLight: '#E2EFE0',
+            brandGreenCard: '#E7F2E6',
+            brandGreenDark: '#0B3B24',
+            brandGreenAccent: '#207044',
+            brandOrangeCard: '#FCEBE3',
+            brandOrangeAccent: '#C84B26',
+            brandGrayCard: '#EAE8DE',
+            brandGrayDark: '#3A3A38',
+            brandText: '#181817'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F5F4EC;
+      color: #181817;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .badge-number {
+      background-color: #0B3B24;
+      color: #ffffff;
+      width: 2rem;
+      height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .custom-shadow {
+      box-shadow: 0 4px 20px -2px rgba(11, 59, 36, 0.05);
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-16 px-4 sm:px-6 lg:px-8 antialiased">
+
+  <div class="max-w-4xl mx-auto pt-8 sm:pt-12">
+    
+    <!-- PAGINA NAVIGATIE -->
+    <nav class="flex bg-[#e2ddd5] p-1 rounded-xl gap-1 mb-8">
+      <a href="index.html" class="flex-1 py-2.5 px-4 rounded-lg font-semibold text-center text-white bg-[#0B3B24] text-sm shadow-sm transition-all">Page 1: The Promise (EcoGPT Claims)</a>
+      <a href="pagina2_realiteit.html" class="flex-1 py-2.5 px-4 rounded-lg font-semibold text-center text-stone-600 text-sm hover:text-stone-900 transition-all">Page 2: The Reality (VRT NWS Check)</a>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="mb-10 text-center sm:text-left border-b border-stone-300 pb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold tracking-wider rounded-full uppercase mb-2">Interactive Explainer</span>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brandGreenDark tracking-tight leading-tight">
+            The nature friendly ai assistant ECOGPT
+          </h1>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: HOW IT WORKS -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="badge-number">1</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brandText">How it works</h2>
+      </div>
+
+      <!-- PIPELINE CARDS -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        
+        <!-- CARD 1 -->
+        <div class="bg-brandGreenCard p-6 rounded-2xl border border-emerald-200/60 flex flex-col justify-between transition-all hover:shadow-md">
+          <div>
+            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mb-4 text-brandGreenDark shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brandGreenDark mb-2">You chat</h3>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              Questions, images, web search. Like any other AI assistant.
+            </p>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="bg-brandGreenCard p-6 rounded-2xl border border-emerald-200/60 flex flex-col justify-between transition-all hover:shadow-md">
+          <div>
+            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mb-4 text-brandGreenDark shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brandGreenDark mb-2">Chats fund trees</h3>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              According to the app, every 100 chats helps fund one real tree through partners.
+            </p>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="bg-brandGreenCard p-6 rounded-2xl border border-emerald-200/60 flex flex-col justify-between transition-all hover:shadow-md">
+          <div>
+            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mb-4 text-brandGreenDark shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brandGreenDark mb-2">Trees get planted</h3>
+            <p class="text-sm text-stone-700 leading-relaxed">
+              Through the non-profit <em>Trees for the Future</em>, in Kenya, Tanzania and Uganda.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- INTERACTIVE CHAT SIMULATOR -->
+      <div class="bg-white p-6 rounded-2xl border border-stone-200 custom-shadow">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4 pb-4 border-b border-stone-100">
+          <div>
+            <h4 class="font-bold text-stone-900 text-lg">Interactive Simulator: Chat & Plant</h4>
+            <p class="text-xs text-stone-500">Test how many chats it takes to trigger a tree planting threshold.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-chat-1" class="px-4 py-2 bg-brandGreenDark hover:bg-emerald-900 text-white text-xs font-bold rounded-lg transition-all active:scale-95 flex items-center gap-1.5">
+              <span>+1 Chat</span>
+            </button>
+            <button id="btn-chat-10" class="px-4 py-2 bg-brandGreenDark hover:bg-emerald-900 text-white text-xs font-bold rounded-lg transition-all active:scale-95 flex items-center gap-1.5">
+              <span>+10 Chats</span>
+            </button>
+            <button id="btn-chat-reset" class="px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-600 text-xs font-semibold rounded-lg transition-all">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+          <div class="bg-stone-50 p-3 rounded-xl border border-stone-100">
+            <span class="text-xs text-stone-500 uppercase font-semibold">Total Chats Sent</span>
+            <div id="sim-chat-count" class="text-2xl font-black text-stone-800 mt-1">0</div>
+          </div>
+          <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
+            <span class="text-xs text-emerald-700 uppercase font-semibold">Trees Funded (100 chats/tree)</span>
+            <div id="sim-tree-count" class="text-2xl font-black text-brandGreenDark mt-1">0</div>
+          </div>
+          <div class="bg-amber-50 p-3 rounded-xl border border-amber-100">
+            <span class="text-xs text-amber-800 uppercase font-semibold">Immediate CO₂ Emissions</span>
+            <div id="sim-co2-count" class="text-2xl font-black text-amber-900 mt-1">0.00 <span class="text-xs font-normal">g CO₂e</span></div>
+          </div>
+        </div>
+
+        <div class="mt-4 bg-stone-100 rounded-full h-3 overflow-hidden">
+          <div id="sim-progress-bar" class="bg-brandGreenAccent h-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+        <p class="text-xs text-stone-400 mt-2 text-right" id="sim-progress-text">0 / 100 chats to next tree</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE NUMBERS -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="badge-number">2</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brandText">The numbers</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-6">
+        <!-- BIG STAT CARD -->
+        <div class="md:col-span-6 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 custom-shadow flex flex-col justify-center">
+          <div class="text-5xl sm:text-6xl font-black text-brandGreenAccent tracking-tight mb-2">
+            156,754
+          </div>
+          <h3 class="text-lg font-bold text-stone-900 leading-snug">
+            trees funded through EcoGPT
+          </h3>
+          <p class="text-xs text-stone-500 mt-2">
+            As listed by <em>Trees for the Future</em>, at the time of writing.
+          </p>
+        </div>
+
+        <!-- COMPARISON BARS -->
+        <div class="md:col-span-6 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 custom-shadow flex flex-col justify-center">
+          <h3 class="text-base font-bold text-stone-900 mb-4">
+            Chats needed for one tree
+          </h3>
+
+          <!-- App Store Listing Bar -->
+          <div class="mb-4">
+            <div class="flex justify-between text-xs font-semibold text-stone-600 mb-1">
+              <span>App Store listing</span>
+              <span class="font-bold text-brandGreenDark">100 chats</span>
+            </div>
+            <div class="w-full bg-stone-100 rounded-lg h-10 p-1 flex items-center">
+              <div class="bg-brandGreenDark h-full rounded-md text-white font-bold text-xs flex items-center justify-end px-3 transition-all duration-500" style="width: 50%;">
+                100
+              </div>
+            </div>
+          </div>
+
+          <!-- Tech Outlet ForkLog Bar -->
+          <div>
+            <div class="flex justify-between text-xs font-semibold text-stone-600 mb-1">
+              <span>Tech outlet ForkLog</span>
+              <span class="font-bold text-brandOrangeAccent">200 chats</span>
+            </div>
+            <div class="w-full bg-stone-100 rounded-lg h-10 p-1 flex items-center">
+              <div class="bg-brandOrangeAccent h-full rounded-md text-white font-bold text-xs flex items-center justify-end px-3 transition-all duration-500" style="width: 100%;">
+                200
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE CALCULATOR -->
+      <div class="bg-brandCardBg p-6 rounded-2xl border border-stone-300">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+          <div>
+            <h4 class="font-bold text-stone-900 text-base">Impact Calculator</h4>
+            <p class="text-xs text-stone-600">Slide to see how many trees your daily usage would plant in a year.</p>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-stone-500 block">Daily Chats</span>
+            <span id="slider-chats-val" class="text-2xl font-black text-brandGreenDark">25</span>
+          </div>
+        </div>
+
+        <input id="chats-slider" type="range" min="1" max="100" value="25" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-brandGreenDark mb-6">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white p-4 rounded-xl border border-stone-200 text-center">
+            <span class="text-xs text-stone-500 font-medium">App Store Claim (100 per tree)</span>
+            <div id="calc-trees-appstore" class="text-2xl font-bold text-brandGreenDark mt-1">91.25 <span class="text-sm font-normal text-stone-600">trees/yr</span></div>
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-stone-200 text-center">
+            <span class="text-xs text-stone-500 font-medium">ForkLog Report (200 per tree)</span>
+            <div id="calc-trees-forklog" class="text-2xl font-bold text-brandOrangeAccent mt-1">45.63 <span class="text-sm font-normal text-stone-600">trees/yr</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: THE TIMING GAP -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="badge-number">3</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brandText">The timing gap</h2>
+      </div>
+      <p class="text-sm text-stone-700 mb-6 leading-relaxed max-w-2xl">
+        A chat uses energy today. A tree takes up CO₂ slowly, over decades. Planting a tree later does not cancel emissions now.
+      </p>
+
+      <!-- GRAPH CONTAINER -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 custom-shadow mb-4">
+        
+        <!-- CANVAS CHART -->
+        <div class="relative w-full h-64 sm:h-80">
+          <canvas id="timingChart"></canvas>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-2">
+          <span>Schematic: shows the idea only, not measured values.</span>
+          <span class="font-bold text-brandOrangeAccent bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+            Do the lines ever meet? Unknown.
+          </span>
+        </div>
+      </div>
+
+      <!-- TIMELINE SLIDER TOOL -->
+      <div class="bg-white p-4 sm:p-6 rounded-2xl border border-stone-200">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-3">
+          <span class="text-xs font-bold text-stone-700 uppercase tracking-wide">Scrub Timeline: <span id="year-label" class="text-brandGreenAccent text-sm">Today (Year 0)</span></span>
+          <div class="text-xs text-stone-500 flex items-center gap-4">
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-brandOrangeAccent inline-block"></span> Chat CO₂ (Instant)</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-brandGreenAccent inline-block"></span> Tree CO₂ (Slow absorption)</span>
+          </div>
+        </div>
+        <input id="timeline-slider" type="range" min="0" max="30" value="0" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-brandGreenAccent">
+        <div class="mt-3 p-3 bg-stone-50 rounded-lg border border-stone-200 text-xs text-stone-700 leading-relaxed" id="timeline-explainer">
+          <strong>At Year 0:</strong> Full CO₂ emissions are released immediately into the atmosphere during query computation. The newly planted sapling absorbs virtually no carbon yet.
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: WHAT WE KNOW AND WHAT WE DON'T -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="badge-number">4</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brandText">What we know, and what we don’t</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- CARD 1: CONFIRMED -->
+        <div class="bg-brandGreenCard p-6 rounded-2xl border border-emerald-200 flex flex-col justify-between transition-all hover:shadow-md">
+          <div>
+            <div class="flex items-center gap-2 mb-4 text-brandGreenDark">
+              <div class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-emerald-600 font-bold">
+                ✓
+              </div>
+              <h3 class="text-xl font-extrabold">Confirmed</h3>
+            </div>
+            
+            <p class="text-sm text-stone-800 mb-3 leading-relaxed">
+              Trees for the Future lists EcoGPT as a sponsor that funds tree planting.
+            </p>
+            <p class="text-sm text-stone-800 leading-relaxed">
+              Planting happens in Kenya, Tanzania and Uganda.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-emerald-300/40 text-xs text-emerald-800 font-medium">
+            Verified Partner Records
+          </div>
+        </div>
+
+        <!-- CARD 2: CLAIMED -->
+        <div class="bg-brandOrangeCard p-6 rounded-2xl border border-orange-200 flex flex-col justify-between transition-all hover:shadow-md">
+          <div>
+            <div class="flex items-center gap-2 mb-4 text-brandOrangeAccent">
+              <div class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-brandOrangeAccent font-bold">
+                💬
+              </div>
+              <h3 class="text-xl font-extrabold">Claimed</h3>
+            </div>
+
+            <p class="text-sm text-stone-800 mb-3 leading-relaxed">
+              The app is efficient by design. Third-party reviews say it runs existing open models on specialised Groq chips.
+            </p>
+            <p class="text-sm text-stone-800 leading-relaxed">
+              Experts say ‘fully environmentally friendly’ would overstate this.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-orange-300/40 text-xs text-brandOrangeAccent font-medium">
+            Developer Statements
+          </div>
+        </div>
+
+        <!-- CARD 3: NOT SHOWN -->
+        <div class="bg-brandGrayCard p-6 rounded-2xl border border-stone-300 flex flex-col justify-between transition-all hover:shadow-md">
+          <div>
+            <div class="flex items-center gap-2 mb-4 text-brandGrayDark">
+              <div class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-stone-700 font-bold">
+                ?
+              </div>
+              <h3 class="text-xl font-extrabold">Not shown</h3>
+            </div>
+
+            <ul class="text-sm text-stone-800 space-y-3 leading-relaxed list-disc pl-4">
+              <li>An independent measurement of the energy a chat uses.</li>
+              <li>That the trees equal a set amount of carbon credits.</li>
+              <li>A peer-reviewed study. The company says it has not published one.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-300 text-xs text-stone-600 font-medium">
+            Missing Verification
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FINAL CONCLUSION BANNER -->
+    <section>
+      <div class="bg-brandGreenDark text-white p-6 sm:p-10 rounded-2xl shadow-xl flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <div class="w-14 h-14 rounded-2xl bg-emerald-800/80 border border-emerald-600/50 flex items-center justify-center shrink-0 text-emerald-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-xl sm:text-2xl font-black text-white leading-tight mb-2">
+            Trees are really being planted. ‘Good for the planet’ is still a claim, not something independently shown.
+          </h3>
+          <p class="text-emerald-200 text-sm font-semibold">
+            The chat with the smallest footprint is still the one you don’t send.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // --- SIMULATOR LOGIC ---
+    let chatCount = 0;
+    const avgCo2PerChat = 0.3; // estimated grams of CO2 per chat
+
+    const simChatCount = document.getElementById('sim-chat-count');
+    const simTreeCount = document.getElementById('sim-tree-count');
+    const simCo2Count = document.getElementById('sim-co2-count');
+    const simProgressBar = document.getElementById('sim-progress-bar');
+    const simProgressText = document.getElementById('sim-progress-text');
+
+    function updateSimulator(addChats) {
+      chatCount += addChats;
+      if (chatCount < 0) chatCount = 0;
+
+      const trees = Math.floor(chatCount / 100);
+      const progress = chatCount % 100;
+      const co2 = (chatCount * avgCo2PerChat).toFixed(2);
+
+      simChatCount.textContent = chatCount.toLocaleString();
+      simTreeCount.textContent = trees.toLocaleString();
+      simCo2Count.innerHTML = `${co2} <span class="text-xs font-normal">g CO₂e</span>`;
+
+      simProgressBar.style.width = `${progress}%`;
+      simProgressText.textContent = `${progress} / 100 chats to next tree`;
+    }
+
+    document.getElementById('btn-chat-1').addEventListener('click', () => updateSimulator(1));
+    document.getElementById('btn-chat-10').addEventListener('click', () => updateSimulator(10));
+    document.getElementById('btn-chat-reset').addEventListener('click', () => {
+      chatCount = 0;
+      updateSimulator(0);
+    });
+
+    // --- CALCULATOR SLIDER LOGIC ---
+    const chatsSlider = document.getElementById('chats-slider');
+    const sliderChatsVal = document.getElementById('slider-chats-val');
+    const calcTreesAppstore = document.getElementById('calc-trees-appstore');
+    const calcTreesForklog = document.getElementById('calc-trees-forklog');
+
+    chatsSlider.addEventListener('input', (e) => {
+      const dailyChats = parseInt(e.target.value);
+      sliderChatsVal.textContent = dailyChats;
+
+      const yearlyChats = dailyChats * 365;
+      const appstoreTrees = (yearlyChats / 100).toFixed(2);
+      const forklogTrees = (yearlyChats / 200).toFixed(2);
+
+      calcTreesAppstore.innerHTML = `${appstoreTrees} <span class="text-sm font-normal text-stone-600">trees/yr</span>`;
+      calcTreesForklog.innerHTML = `${forklogTrees} <span class="text-sm font-normal text-stone-600">trees/yr</span>`;
+    });
+
+    // --- CHART.JS TIMING GAP GRAPH ---
+    const ctx = document.getElementById('timingChart').getContext('2d');
+    
+    const years = Array.from({length: 31}, (_, i) => i);
+    const co2Emissions = years.map(() => 80); 
+    const co2Absorbed = years.map(y => Math.min(80, Math.pow(y / 30, 2) * 75 + 2)); 
+
+    const timingChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: years.map(y => y === 0 ? 'Today' : (y === 30 ? 'Decades later' : `Year ${y}`)),
+        datasets: [
+          {
+            label: 'CO₂ from chats: released right away',
+            data: co2Emissions,
+            borderColor: '#C84B26',
+            borderWidth: 3,
+            pointRadius: (ctx) => ctx.dataIndex === 0 ? 6 : 0,
+            pointBackgroundColor: '#C84B26',
+            tension: 0,
+            fill: false
+          },
+          {
+            label: 'CO₂ absorbed by the trees: slow',
+            data: co2Absorbed,
+            borderColor: '#207044',
+            borderWidth: 3.5,
+            borderDash: [5, 5],
+            pointRadius: 0,
+            tension: 0.4,
+            fill: {
+              target: 'origin',
+              above: 'rgba(32, 112, 68, 0.1)'
+            }
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+            align: 'start',
+            labels: {
+              usePointStyle: true,
+              font: {
+                family: 'Plus Jakarta Sans',
+                weight: 'bold',
+                size: 12
+              },
+              color: '#181817'
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.dataset.label + ': ' + Math.round(context.raw) + ' relative CO₂ units';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              callback: function(val, index) {
+                if (index === 0) return 'Today';
+                if (index === 30) return 'Decades later';
+                return '';
+              },
+              font: {
+                family: 'Plus Jakarta Sans',
+                weight: 'bold'
+              },
+              color: '#181817'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'CO₂ (total)',
+              font: {
+                family: 'Plus Jakarta Sans',
+                weight: 'bold',
+                size: 11
+              },
+              color: '#181817'
+            },
+            ticks: {
+              display: false
+            },
+            grid: {
+              color: '#EAE8DE'
+            },
+            min: 0,
+            max: 100
+          }
+        }
+      }
+    });
+
+    // --- TIMELINE SLIDER LOGIC ---
+    const timelineSlider = document.getElementById('timeline-slider');
+    const yearLabel = document.getElementById('year-label');
+    const timelineExplainer = document.getElementById('timeline-explainer');
+
+    const timelineTexts = [
+      "<strong>At Year 0 (Today):</strong> Full CO₂ emissions are released immediately into the atmosphere during query computation. The newly planted sapling absorbs virtually no carbon yet.",
+      "<strong>At Year 5:</strong> The tree has grown slightly, absorbing a small fraction of the initial chat emissions. The net atmospheric CO₂ balance remains heavily positive.",
+      "<strong>At Year 15:</strong> The tree reaches middle growth, absorbing carbon at a higher rate. However, the timing gap persists because emissions occurred 15 years prior.",
+      "<strong>At Year 30 (Decades Later):</strong> The mature tree has absorbed significant carbon, but whether it fully neutralizes the original footprint depends on tree survival, regional climate, and long-term care."
+    ];
+
+    timelineSlider.addEventListener('input', (e) => {
+      const year = parseInt(e.target.value);
+      yearLabel.textContent = year === 0 ? 'Today (Year 0)' : `Year ${year}`;
+
+      let textIndex = 0;
+      if (year > 3) textIndex = 1;
+      if (year > 12) textIndex = 2;
+      if (year > 25) textIndex = 3;
+
+      timelineExplainer.innerHTML = timelineTexts[textIndex];
+
+      timingChart.setActiveElements([
+        { datasetIndex: 0, index: year },
+        { datasetIndex: 1, index: year }
+      ]);
+      timingChart.update();
+    });
+  </script>
+</body>
+</html>

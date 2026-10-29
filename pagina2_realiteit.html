@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoGPT Explainer: The Reality (VRT NWS Check)</title>
+  <style>
+    :root {
+      --bg-color: #f7f3ed;
+      --card-bg: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --critical-red: #d97706;
+      --critical-darkred: #991b1b;
+      --vrt-blue: #0055ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 820px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Navigation / Toggle Header */
+    .nav-toggle {
+      display: flex;
+      background: #e2ddd5;
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .nav-btn.active {
+      background: var(--critical-darkred);
+      color: white;
+    }
+
+    .nav-btn:hover:not(.active) {
+      color: #111827;
+      background: #d6d0c4;
+    }
+
+    /* Main Header */
+    header {
+      margin-bottom: 0.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e5e7eb;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .num-badge {
+      background: var(--critical-darkred);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    /* Factcheck Section Grid */
+    .fact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .fact-box {
+      padding: 1.2rem;
+      border-radius: 12px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .fact-box h4 {
+      color: var(--critical-darkred);
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .fact-box p {
+      font-size: 0.9rem;
+      color: #4b5563;
+      line-height: 1.4;
+    }
+
+    /* Physical Comparison Tool Styling */
+    .physical-tool {
+      background: #fff7ed;
+      border: 1px solid #ffedd5;
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+
+    .preset-buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .preset-btn {
+      background: white;
+      border: 1px solid #fed7aa;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #9a3412;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .preset-btn.active, .preset-btn:hover {
+      background: var(--critical-darkred);
+      color: white;
+      border-color: var(--critical-darkred);
+    }
+
+    .physical-display {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .physical-display {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .phys-card {
+      background: white;
+      padding: 1.2rem;
+      border-radius: 10px;
+      border: 1px solid #fed7aa;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .phys-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--critical-darkred);
+      margin-top: 0.2rem;
+    }
+
+    /* Sources List */
+    .sources-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .sources-list li {
+      font-size: 0.9rem;
+      color: #4b5563;
+      background: #f9fafb;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sources-list a {
+      color: var(--critical-darkred);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .sources-list a:hover {
+      text-decoration: underline;
+    }
+
+    /* Bottom Conclusion Banner */
+    .banner-reality {
+      background: #111827;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+    }
+
+    .banner-reality h3 {
+      color: #fca5a5;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-reality p {
+      color: #d1d5db;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .vrt-tag {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 1rem;
+      display: block;
+      border-top: 1px solid #374151;
+      padding-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Navigation between Page 1 (Promise) and Page 2 (Reality) -->
+    <nav class="nav-toggle">
+      <a href="index.html" class="nav-btn">Page 1: The Promise (EcoGPT Claims)</a>
+      <a href="pagina2_realiteit.html" class="nav-btn active">Page 2: The Reality (VRT NWS Check)</a>
+    </nav>
+
+    <header>
+      <span class="badge">VRT NWS CHECK & EXPERT ANALYSIS</span>
+      <h1>Is EcoGPT Truly Better for the Environment?</h1>
+      <p class="subtitle">Behind the marketing of 'green AI' lies a complex story of greenwashing, delayed compensation, and unverified sustainability claims.</p>
+    </header>
+
+    <!-- 1. Key Findings from VRT NWS & Experts -->
+    <section class="card">
+      <div class="card-title">
+        <span class="num-badge">1</span>
+        <h2>Hard Facts from the VRT Fact Check</h2>
+      </div>
+
+      <div class="fact-grid">
+        <div class="fact-box">
+          <h4>❌ AI Cannot Be Truly 'Green'</h4>
+          <p>Every search query immediately consumes power and cooling water. Planting a tree does not cancel out that direct power draw on the grid.</p>
+        </div>
+
+        <div class="fact-box">
+          <h4>⚠️ Incomplete Calculations</h4>
+          <p>EcoGPT only calculates the electricity for your response (inference). The energy-intensive <i>training</i> phase of the AI model is ignored completely.</p>
+        </div>
+
+        <div class="fact-box">
+          <h4>⏳ The 'Timing Gap'</h4>
+          <p>CO₂ emissions happen RIGHT NOW. A young tree takes 20 to 30 years to fully grow and actually absorb that amount of CO₂.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Physical Comparison per Prompt -->
+    <section class="card">
+      <div class="card-title">
+        <span class="num-badge">2</span>
+        <h2>What Does 1 Prompt Physically Mean in CO₂?</h2>
+      </div>
+
+      <p style="color: #4b5563; font-size: 0.95rem; margin-bottom: 1.2rem;">
+        A single standard text query to an AI model emits roughly <strong>0.3 grams of CO₂</strong>. Click on a number of prompts to see what that equals in everyday physical terms:
+      </p>
+
+      <div class="physical-tool">
+        <!-- Preset selection buttons -->
+        <div class="preset-buttons">
+          <button class="preset-btn active" onclick="setPrompts(1, event)">1 Question</button>
+          <button class="preset-btn" onclick="setPrompts(10, event)">10 Questions</button>
+          <button class="preset-btn" onclick="setPrompts(100, event)">100 Questions (1 Tree Promise)</button>
+          <button class="preset-btn" onclick="setPrompts(1000, event)">1,000 Questions</button>
+        </div>
+
+        <div class="physical-display">
+          <div class="phys-card">
+            <span style="font-size: 0.8rem; color: #6b7280;">Total CO₂ Emissions</span>
+            <div class="phys-val" id="co2-grams">0.3 grams</div>
+            <span style="font-size: 0.75rem; color: #9ca3af;" id="prompt-label">1 question sent</span>
+          </div>
+          <div class="phys-card">
+            <span style="font-size: 0.8rem; color: #6b7280;">Physical Real-Life Equivalent</span>
+            <div class="phys-val" id="physical-comparison" style="font-size: 1.1rem; margin-top: 0.4rem;">Equivalent to leaving an old incandescent light bulb on for ~3 seconds or charging 1% of your smartphone.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. The 3 Biggest Myths Surrounding EcoGPT -->
+    <section class="card">
+      <div class="card-title">
+        <span class="num-badge">3</span>
+        <h2>Three Myths Debunked</h2>
+      </div>
+
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+        <li style="border-left: 4px solid var(--critical-darkred); padding-left: 1rem;">
+          <strong>Myth 1: "Every 100 questions plants 1 tree"</strong><br>
+          <span style="color: #4b5563; font-size: 0.9rem;">The app version claims 100, but fine print reveals that for free users it often requires up to 200 questions per tree.</span>
+        </li>
+        <li style="border-left: 4px solid var(--critical-darkred); padding-left: 1rem;">
+          <strong>Myth 2: "Groq hardware makes it 100% sustainable"</strong><br>
+          <span style="color: #4b5563; font-size: 0.9rem;">Faster chips draw power for a shorter time, but peak electricity demands on the power grid remain extremely high.</span>
+        </li>
+        <li style="border-left: 4px solid var(--critical-darkred); padding-left: 1rem;">
+          <strong>Myth 3: "Independently proven impact"</strong><br>
+          <span style="color: #4b5563; font-size: 0.9rem;">There are no peer-reviewed or published scientific studies proving that the environmental footprint is net zero.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 4. Sources / Verification -->
+    <section class="card">
+      <div class="card-title">
+        <span class="num-badge">4</span>
+        <h2>Sources & Verification</h2>
+      </div>
+      <p style="color: #4b5563; font-size: 0.95rem; margin-bottom: 1rem;">
+        This analysis is based on independent journalistic fact checks and environmental reports on AI data centers:
+      </p>
+      
+      <ul class="sources-list">
+        <li>
+          <span><strong>VRT NWS / VRT MAX:</strong> Fact check & analysis on EcoGPT and the limits of CO₂ compensation via tree planting.</span>
+          <a href="https://www.vrt.be/vrtnws/nl/2026/08/25/ecogpt/" target="_blank">Read Article →</a>
+        </li>
+        <li>
+          <span><strong>Trees for the Future:</strong> Official partner registries and donor verification for reforestation projects in East Africa.</span>
+          <a href="https://trees.org" target="_blank">Visit Trees.org →</a>
+        </li>
+        <li>
+          <span><strong>ForkLog Tech Analysis:</strong> Technical research regarding energy consumption of open-source language models on specialized hardware.</span>
+          <span style="font-size: 0.85rem; color: #6b7280;">Industry Report</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Conclusion -->
+    <div class="banner-reality">
+      <h3>VRT NWS Check Final Conclusion:</h3>
+      <p>
+        Planting trees is positive for biodiversity, but it does <strong>not make AI usage climate-neutral</strong>. EcoGPT primarily uses sustainability as a marketing tool. The most eco-friendly prompt remains the prompt you don't send.
+      </p>
+      <span class="vrt-tag">Based on fact checks and reporting by VRT NWS (NWS CHECK) & Radio 1 'De Ochtend'.</span>
+    </div>
+
+  </div>
+
+  <script>
+    function setPrompts(count, evt) {
+      // Update active button styling
+      const buttons = document.querySelectorAll('.preset-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      if (evt && evt.target) {
+        evt.target.classList.add('active');
+      }
+
+      // Calculate CO2 in grams (0.3g per prompt)
+      const totalGrams = (count * 0.3).toFixed(1);
+      
+      document.getElementById('co2-grams').innerText = totalGrams + " grams";
+      document.getElementById('prompt-label').innerText = `${count} ${count === 1 ? 'question' : 'questions'} sent`;
+
+      // Determine physical comparison text
+      let physicalText = "";
+      if (count === 1) {
+        physicalText = "Equivalent to leaving an old incandescent light bulb on for ~3 seconds or charging 1% of your smartphone.";
+      } else if (count === 10) {
+        physicalText = "Equivalent to driving roughly 15 meters (50 feet) in a gas-powered car.";
+      } else if (count === 100) {
+        physicalText = "Equivalent to ~30 grams of CO₂. This is what EcoGPT links to planting 1 tree (which takes 20+ years to actually absorb this amount).";
+      } else if (count === 1000) {
+        physicalText = "Equivalent to boiling a kettle for half a cup of tea.";
+      }
+
+      document.getElementById('physical-comparison').innerText = physicalText;
+    }
+  </script>
+
+</body>
+</html>
